@@ -49,6 +49,8 @@ class Packet(Pickleable):
         for layer in self.layers:
             if layer.layer_name.lower() == item.lower():
                 return layer
+            elif hasattr(layer, 'layer_showname') and layer.layer_showname is not None and layer.layer_showname.lower() == item.lower():
+                return layer
         raise KeyError('Layer does not exist in packet')
 
     def __contains__(self, item):
