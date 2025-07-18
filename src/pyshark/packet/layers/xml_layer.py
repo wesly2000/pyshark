@@ -10,11 +10,14 @@ from pyshark.packet.layers import base
 class XmlLayer(base.BaseLayer):
     __slots__ = [
         "raw_mode",
-        "_all_fields"
+        "_all_fields",
+        "_layer_showname"
     ] + base.BaseLayer.__slots__
 
     def __init__(self, xml_obj=None, raw_mode=False):
+        layer_showname = xml_obj.attrib.get('showname', None)
         super().__init__(xml_obj.attrib['name'])
+        self._layer_showname = layer_showname
         self.raw_mode = raw_mode
 
         self._all_fields = {}
@@ -72,6 +75,10 @@ class XmlLayer(base.BaseLayer):
         if self._layer_name == 'fake-field-wrapper':
             return base.DATA_LAYER_NAME
         return super().layer_name
+    
+    @property
+    def layer_showname(self):
+        return self._layer_showname
 
     def __getattr__(self, item):
         val = self.get_field(item)
