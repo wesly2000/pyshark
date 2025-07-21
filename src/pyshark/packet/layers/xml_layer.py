@@ -78,7 +78,9 @@ class XmlLayer(base.BaseLayer):
     
     @property
     def layer_showname(self):
-        return self._layer_showname
+        if self._layer_showname is not None:
+            return self._layer_showname.lower()
+        return None
 
     def __getattr__(self, item):
         val = self.get_field(item)
