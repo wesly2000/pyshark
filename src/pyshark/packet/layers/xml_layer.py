@@ -76,6 +76,10 @@ class XmlLayer(base.BaseLayer):
             return base.DATA_LAYER_NAME
         return super().layer_name
     
+    @layer_name.setter
+    def layer_name(self, value):
+        self._layer_name = value
+    
     @property
     def layer_showname(self):
         if self._layer_showname is not None:
